@@ -5,8 +5,6 @@ module Access.Control.Concurrent
 
     , module Access.Control.Concurrent.MVar
     , module Access.Control.Concurrent.Chan
-    , module Access.Control.Concurrent.QSem
-    , module Access.Control.Concurrent.QSemN
 
     , ThreadAccess(..)
     , BoundThreadAccess(..)
@@ -21,8 +19,6 @@ import Access.System.Mem.Weak
 import Access.Control.Exception
 import Access.Control.Concurrent.MVar
 import Access.Control.Concurrent.Chan
-import Access.Control.Concurrent.QSem
-import Access.Control.Concurrent.QSemN
 
 
 class ExceptionAccess io => ThreadAccess io where
