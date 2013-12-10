@@ -15,7 +15,6 @@ library
                         Access.Control.Concurrent.MVar,
                         Access.Control.Concurrent.QSem,
                         Access.Control.Concurrent.QSemN,
-                        Access.Control.Concurrent.SampleVar,
                         Access.Control.Exception,
                         Access.Control.Exception.Base,
 
