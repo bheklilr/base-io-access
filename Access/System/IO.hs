@@ -2,6 +2,8 @@
 module Access.System.IO
     ( module System.IO
 
+    , HandleWriteAccess
+    , HandleReadAccess
     , HandleAccess(..)
     , StdIOAccess(..)
     , FileAccess(..)
@@ -14,7 +16,27 @@ import System.IO
 import Foreign.Ptr (Ptr)
 
 
-class Monad io => HandleAccess io where
+class Monad io => HandleWriteAccess io where
+    hPutChar'           :: Handle -> Char -> io ()
+    hPutStr'            :: Handle -> String -> io ()
+    hPutStrLn'          :: Handle -> String -> io ()
+    hPrint'             :: Show a => Handle -> a -> io ()
+    hPutBuf'            :: Handle -> Ptr a -> Int -> io ()
+    hPutBufNonBlocking' :: Handle -> Ptr a -> Int -> io Int
+
+
+class Monad io => HandleReadAccess io where
+    hWaitForInput'      :: Handle -> Int -> io Bool
+    hGetChar'           :: Handle -> io Char
+    hGetLine'           :: Handle -> io String
+    hLookAhead'         :: Handle -> io Char
+    hGetContents'       :: Handle -> io String
+    hGetBuf'            :: Handle -> Ptr a -> Int -> io Int
+    hGetBufSome'        :: Handle -> Ptr a -> Int -> io Int
+    hGetBufNonBlocking' :: Handle -> Ptr a -> Int -> io Int
+
+
+class (HandleWriteAccess io, HandleReadAccess io) => HandleAccess io where
     hClose'             :: Handle -> io ()
     hFileSize'          :: Handle -> io Integer
     hSetFileSize'       :: Handle -> Integer -> io ()
@@ -35,21 +57,7 @@ class Monad io => HandleAccess io where
     hSetEcho'           :: Handle -> Bool -> io ()
     hGetEcho'           :: Handle -> io Bool
     hShow'              :: Handle -> io String
-    hWaitForInput'      :: Handle -> Int -> io Bool
     hReady'             :: Handle -> io Bool
-    hGetChar'           :: Handle -> io Char
-    hGetLine'           :: Handle -> io String
-    hLookAhead'         :: Handle -> io Char
-    hGetContents'       :: Handle -> io String
-    hPutChar'           :: Handle -> Char -> io ()
-    hPutStr'            :: Handle -> String -> io ()
-    hPutStrLn'          :: Handle -> String -> io ()
-    hPrint'             :: Show a => Handle -> a -> io ()
-    hPutBuf'            :: Handle -> Ptr a -> Int -> io ()
-    hGetBuf'            :: Handle -> Ptr a -> Int -> io Int
-    hGetBufSome'        :: Handle -> Ptr a -> Int -> io Int
-    hPutBufNonBlocking' :: Handle -> Ptr a -> Int -> io Int
-    hGetBufNonBlocking' :: Handle -> Ptr a -> Int -> io Int
     hSetEncoding'       :: Handle -> TextEncoding -> io ()
     hGetEncoding'       :: Handle -> io (Maybe TextEncoding)
     hSetNewlineMode'    :: Handle -> NewlineMode -> io ()
@@ -89,6 +97,24 @@ class Monad io => TextEncodingAccess io where
     mkTextEncoding' :: String -> io TextEncoding
 
 
+instance HandleWriteAccess IO where
+    hPutChar'           = hPutChar
+    hPutStr'            = hPutStr
+    hPutStrLn'          = hPutStrLn
+    hPrint'             = hPrint
+    hPutBuf'            = hPutBuf
+    hPutBufNonBlocking' = hPutBufNonBlocking
+
+instance HandleReadAccess IO where
+    hWaitForInput'      = hWaitForInput
+    hGetChar'           = hGetChar
+    hGetLine'           = hGetLine
+    hLookAhead'         = hLookAhead
+    hGetContents'       = hGetContents
+    hGetBuf'            = hGetBuf
+    hGetBufSome'        = hGetBufSome
+    hGetBufNonBlocking' = hGetBufNonBlocking
+
 instance HandleAccess IO where
     hClose'             = hClose
     hFileSize'          = hFileSize
@@ -110,21 +136,7 @@ instance HandleAccess IO where
     hSetEcho'           = hSetEcho
     hGetEcho'           = hGetEcho
     hShow'              = hShow
-    hWaitForInput'      = hWaitForInput
     hReady'             = hReady
-    hGetChar'           = hGetChar
-    hGetLine'           = hGetLine
-    hLookAhead'         = hLookAhead
-    hGetContents'       = hGetContents
-    hPutChar'           = hPutChar
-    hPutStr'            = hPutStr
-    hPutStrLn'          = hPutStrLn
-    hPrint'             = hPrint
-    hPutBuf'            = hPutBuf
-    hGetBuf'            = hGetBuf
-    hGetBufSome'        = hGetBufSome
-    hPutBufNonBlocking' = hPutBufNonBlocking
-    hGetBufNonBlocking' = hGetBufNonBlocking
     hSetEncoding'       = hSetEncoding
     hGetEncoding'       = hGetEncoding
     hSetNewlineMode'    = hSetNewlineMode
