@@ -7,8 +7,10 @@ module Access.System.Mem.Weak
 
 import System.Mem.Weak
 
+import Access.Core
 
-class Monad io => WeakMemAccess io where
+
+class Access io => WeakMemAccess io where
     mkWeak'     :: k -> v -> Maybe (IO ()) -> io (Weak v)
     deRefWeak'  :: Weak v -> io (Maybe v)
     finalize'   :: Weak v -> io ()

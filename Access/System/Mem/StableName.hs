@@ -7,8 +7,10 @@ module Access.System.Mem.StableName
 
 import System.Mem.StableName
 
+import Access.Core
 
-class Monad io => StableNameAccess io where
+
+class Access io => StableNameAccess io where
     makeStableName' :: a -> io (StableName a)
 
 

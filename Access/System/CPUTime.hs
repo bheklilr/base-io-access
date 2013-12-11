@@ -7,8 +7,10 @@ module Access.System.CPUTime
 
 import System.CPUTime
 
+import Access.Core
 
-class Monad io => CPUTimeAccess io where
+
+class Access io => CPUTimeAccess io where
     getCPUTime' :: io Integer
 
 

@@ -7,8 +7,10 @@ module Access.Debug.Trace
 
 import Debug.Trace
 
+import Access.Core
 
-class Monad io => TraceAccess io where
+
+class Access io => TraceAccess io where
     traceIO'        :: String -> io ()
     traceEventIO'   :: String -> io ()
 

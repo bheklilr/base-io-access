@@ -7,8 +7,10 @@ module Access.System.Mem
 
 import System.Mem
 
+import Access.Core
 
-class Monad io => MemAccess io where
+
+class Access io => MemAccess io where
     performGC' :: io ()
 
 

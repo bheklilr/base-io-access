@@ -7,8 +7,10 @@ module Access.Control.Concurrent.Chan
 
 import Control.Concurrent.Chan
 
+import Access.Core
 
-class Monad io => ChanAccess io where
+
+class Access io => ChanAccess io where
     newChan'            :: io (Chan a)
     writeChan'          :: Chan a -> a -> io ()
     readChan'           :: Chan a -> io a

@@ -7,8 +7,10 @@ module Access.System.IO.Error
 
 import System.IO.Error
 
+import Access.Core
 
-class Monad io => IOErrorAccess io where
+
+class Access io => IOErrorAccess io where
     ioError'        :: IOError -> io a
     catchIOError'   :: io a -> (IOError -> io a) -> io a
     tryIOError'     :: io a -> io (Either IOError a)

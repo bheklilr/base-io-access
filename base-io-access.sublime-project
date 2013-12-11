@@ -8,6 +8,11 @@
             "file_exclude_patterns": ["*.sublime-*", "cabal.sandbox.config"]
         },
         {
+            "path": "./Access/",
+            "name": "Access",
+            "folder_exclude_patterns": ["*"]
+        },
+        {
             "path": "./Access/Control/",
             "name": "Access.Control",
             "folder_exclude_patterns": ["*"]

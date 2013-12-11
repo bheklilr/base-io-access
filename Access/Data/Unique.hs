@@ -7,8 +7,10 @@ module Access.Data.Unique
 
 import Data.Unique
 
+import Access.Core
 
-class Monad io => UniqueAccess io where
+
+class Access io => UniqueAccess io where
     newUnique' :: io Unique
 
 

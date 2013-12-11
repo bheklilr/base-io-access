@@ -7,8 +7,10 @@ module Access.System.Exit
 
 import System.Exit
 
+import Access.Core
 
-class Monad io => ExitAccess io where
+
+class Access io => ExitAccess io where
     exitWith'       :: ExitCode -> io a
     exitFailure'    :: io a
     exitSuccess'    :: io a

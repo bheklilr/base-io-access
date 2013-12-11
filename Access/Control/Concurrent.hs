@@ -1,4 +1,3 @@
-{-# LANGUAGE Safe       #-}
 {-# LANGUAGE RankNTypes #-}
 module Access.Control.Concurrent
     ( module Control.Concurrent

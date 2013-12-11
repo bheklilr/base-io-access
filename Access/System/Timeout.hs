@@ -7,8 +7,10 @@ module Access.System.Timeout
 
 import System.Timeout
 
+import Access.Core
 
-class Monad io => TimeoutAccess io where
+
+class Access io => TimeoutAccess io where
     timeout' :: Int -> IO a -> io (Maybe a)
 
 

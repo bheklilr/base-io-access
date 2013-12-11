@@ -1,4 +1,3 @@
-{-# LANGUAGE Safe   #-}
 module Access.System.IO
     ( module System.IO
 
@@ -15,8 +14,10 @@ module Access.System.IO
 import System.IO
 import Foreign.Ptr (Ptr)
 
+import Access.Core
 
-class Monad io => HandleWriteAccess io where
+
+class Access io => HandleWriteAccess io where
     hPutChar'           :: Handle -> Char -> io ()
     hPutStr'            :: Handle -> String -> io ()
     hPutStrLn'          :: Handle -> String -> io ()
@@ -25,7 +26,7 @@ class Monad io => HandleWriteAccess io where
     hPutBufNonBlocking' :: Handle -> Ptr a -> Int -> io Int
 
 
-class Monad io => HandleReadAccess io where
+class Access io => HandleReadAccess io where
     hWaitForInput'      :: Handle -> Int -> io Bool
     hGetChar'           :: Handle -> io Char
     hGetLine'           :: Handle -> io String
@@ -93,7 +94,7 @@ class HandleAccess io => TempFileAccess io where
     openBinaryTempFileWithDefaultPermissions'   :: FilePath -> String -> io (FilePath, Handle)
 
 
-class Monad io => TextEncodingAccess io where
+class Access io => TextEncodingAccess io where
     mkTextEncoding' :: String -> io TextEncoding
 
 

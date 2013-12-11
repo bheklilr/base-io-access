@@ -1,4 +1,3 @@
-{-# LANGUAGE Safe       #-}
 {-# LANGUAGE RankNTypes #-}
 module Access.Control.Exception
     ( module Control.Exception
@@ -11,8 +10,9 @@ module Access.Control.Exception
 import Control.Exception
 import Control.Concurrent (ThreadId)
 
+import Access.Core
 
-class Monad io => ExceptionAccess io where
+class Access io => ExceptionAccess io where
     throwIO'        :: Exception e => e -> io a
     ioError'        :: IOError -> io a
     throwTo'        :: Exception e => ThreadId -> e -> io ()

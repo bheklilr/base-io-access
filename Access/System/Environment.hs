@@ -7,8 +7,10 @@ module Access.System.Environment
 
 import System.Environment
 
+import Access.Core
 
-class Monad io => EnvironmentAccess io where
+
+class Access io => EnvironmentAccess io where
     getArgs'            :: io [String]
     getProgName'        :: io String
     getExecutablePath'  :: io FilePath

@@ -8,9 +8,10 @@ module Access.Control.Concurrent.MVar
 
 import Control.Concurrent.MVar
 
+import Access.Core
 import Access.System.Mem.Weak
 
-class Monad io => MVarAccess io where
+class Access io => MVarAccess io where
     newEmptyMVar'       :: io (MVar a)
     newMVar'            :: a -> io (MVar a)
     takeMVar'           :: MVar a -> io a

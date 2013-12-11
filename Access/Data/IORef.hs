@@ -8,10 +8,11 @@ module Access.Data.IORef
 
 import Data.IORef
 
+import Access.Core
 import Access.System.Mem.Weak
 
 
-class Monad io => IORefAccess io where
+class Access io => IORefAccess io where
     newIORef'           :: a -> io (IORef a)
     readIORef'          :: IORef a -> io a
     writeIORef'         :: IORef a -> a -> io ()
