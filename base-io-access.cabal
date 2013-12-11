@@ -20,26 +20,6 @@ library
 
                         Access.Debug.Trace,
 
-                        Access.Foreign,
-                        Access.Foreign.C,
-                        Access.Foreign.C.Error,
-                        Access.Foreign.C.String,
-                        Access.Foreign.Concurrent,
-                        Access.ForeignPtr.Safe,
-                        Access.Foreign.Marshal.Alloc,
-                        Access.Foreign.Marshal.Array,
-                        Access.Foreign.Marshal.Error,
-                        Access.Foreign.Marshal.Pool,
-                        Access.Foreign.Marshal.Safe,
-                        Access.Foreign.Marshal.Unsafe,
-                        Access.Foreign.Marshal.Utils,
-                        Access.Foreign.Ptr,
-                        Access.Foreign.Safe,
-                        Access.Foreign.StablePtr,
-                        Access.Foreign.Storable,
-
-                        Access.Prelude,
-
                         Access.System.CPUTime,
                         Access.System.Environment,
                         Access.System.Exit,
