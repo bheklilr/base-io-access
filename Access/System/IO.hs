@@ -5,6 +5,8 @@ module Access.System.IO
     , HandleReadAccess
     , HandleAccess(..)
     , StdIOAccess(..)
+    , FileReadAccess(..)
+    , FileWriteAccess(..)
     , FileAccess(..)
     , TempFileAccess(..)
     , TextEncodingAccess(..)
@@ -77,12 +79,18 @@ class HandleAccess io => StdIOAccess io where
     readLn'         :: Read a => io a
 
 
-class HandleAccess io => FileAccess io where
+class HandleReadAccess io => FileReadAccess io where
+    readFile' :: FilePath -> io String
+
+
+class HandleWriteAccess io => FileWriteAccess io where
+    writeFile'  :: FilePath -> String -> io ()
+    appendFile' :: FilePath -> String -> io ()
+
+
+class (FileReadAccess io, FileWriteAccess io) => FileAccess io where
     withFile'       :: FilePath -> IOMode -> (Handle -> io r) -> io r
     openFile'       :: FilePath -> IOMode -> io Handle
-    readFile'       :: FilePath -> io String
-    writeFile'      :: FilePath -> String -> io ()
-    appendFile'     :: FilePath -> String -> io ()
     withBinaryFile' :: FilePath -> IOMode -> (Handle -> io r) -> io r
     openBinaryFile' :: FilePath -> IOMode -> io Handle
 
@@ -154,12 +162,16 @@ instance StdIOAccess IO where
     getContents' = getContents
     readLn'      = readLn
 
+instance FileReadAccess IO where
+    readFile'       = readFile
+
+instance FileWriteAccess IO where
+    writeFile'      = writeFile
+    appendFile'     = appendFile
+
 instance FileAccess IO where
     withFile'       = withFile
     openFile'       = openFile
-    readFile'       = readFile
-    writeFile'      = writeFile
-    appendFile'     = appendFile
     withBinaryFile' = withBinaryFile
     openBinaryFile' = openBinaryFile
 
