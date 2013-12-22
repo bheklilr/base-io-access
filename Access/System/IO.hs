@@ -1,3 +1,12 @@
+--------------------------------------------------------------------------------
+-- |
+-- Module       :   Access.System.IO
+-- Copyright    :   (c) Aaron Stevens, 2014
+-- License      :   GPL2
+--
+-- Maintainer   :   bheklilr2@gmail.com
+--------------------------------------------------------------------------------
+
 module Access.System.IO
     ( module System.IO
 
@@ -20,20 +29,83 @@ import Access.Core
 
 -- | Provides access to Handle write functions
 class Access io => HandleWriteAccess io where
-    -- | Computation 'hPutChar'' @hdl ch@ writes the character @ch@ to the
+    -- | Wraps 'System.IO.hPutChar'
+    --
+    -- Computation 'hPutChar'' @hdl ch@ writes the character @ch@ to the
     -- file or channel managed by @hdl@.  Characters may be buffered if
     -- buffering is enabled for @hdl@.
     --
     -- This operation may fail with:
     --
-    --  * 'isFullError' if the device is full; or
+    --  * 'System.IO.Error.isFullError' if the device is full; or
     --
-    --  * 'isPermissionError' if another system resource limit would be exceeded
+    --  * 'System.IO.Error.isPermissionError' if another system resource limit would be exceeded
     hPutChar'           :: Handle -> Char -> io ()
+    -- | Wraps 'System.IO.hPutStr'
+    --
+    -- Computation 'hPutStr'' @hdl s@ writes the string @s@ to the file or
+    -- channel managed by @hdl@
+    --
+    -- This operation may fail with:
+    --
+    --  * 'System.IO.Error.isFullError' if the device is full; or
+    --
+    --  * 'System.IO.Error.isPermissionError' if another system resource limit would be exceeded
     hPutStr'            :: Handle -> String -> io ()
+    -- | Wraps 'System.IO.hPutStrLn'
+    --
+    -- The same as 'hPutStr'', but adds a newline character
     hPutStrLn'          :: Handle -> String -> io ()
+    -- | Wraps 'System.IO.hPrint'
+    --
+    -- Computation 'hPrint'' @hdl t@ writes the string representation of @t@
+    -- given by the 'Text.Show.shows' function to the file or channel managed
+    -- by @hdl@ and appends a newline.
+    --
+    -- This operation may fail with:
+    --
+    --  * 'System.IO.Error.isFullError' if the device is full; or
+    --
+    --  * 'System.IO.Error.isPermissionError' if another system resource limit would be exceeded
     hPrint'             :: Show a => Handle -> a -> io ()
+    -- | Wraps 'System.IO.hPutBuf'
+    --
+    -- 'hPutBuf'' @hdl buf count@ writes @count@ 8-bit bytes from the
+    -- buffer @buf@ to the handle @hdl@.  It returns ().
+    --
+    -- 'hPutBuf'' ignores any text encoding that applies to the 'Handle',
+    -- writing the bytes directly to the underlying file or device.
+    --
+    -- 'hPutBuf'' ignores the prevailing 'TextEncoding' and
+    -- 'NewlineMode' on the 'Handle', and writes bytes directly.
+    --
+    -- This operation may fail with:
+    --
+    --  * 'ResourceVanished' if the handle is a pipe or socket, and the
+    --    reading end is closed.  (If this is a POSIX system, and the program
+    --    has not asked to ignore SIGPIPE, then a SIGPIPE may be delivered
+    --    instead, whose default action is to terminate the program).
     hPutBuf'            :: Handle -> Ptr a -> Int -> io ()
+    -- | Wraps 'System.IO.hPutBufNonBlocking'
+    --
+    -- 'hGetBufNonBlocking'' @hdl buf count@ reads data from the handle @hdl@
+    -- into the buffer @buf@ until either EOF is reached, or
+    -- @count@ 8-bit bytes have been read, or there is no more data available
+    -- to read immediately.
+    --
+    -- 'hGetBufNonBlocking'' is identical to 'hGetBuf'', except that it will
+    -- never block waiting for data to become available, instead it returns
+    -- only whatever data is available.  To wait for data to arrive before
+    -- calling 'hGetBufNonBlocking'', use 'hWaitForInput'.
+    --
+    -- If the handle is a pipe or socket, and the writing end
+    -- is closed, 'hGetBufNonBlocking'' will behave as if EOF was reached.
+    --
+    -- 'hGetBufNonBlocking'' ignores the prevailing 'TextEncoding' and
+    -- 'NewlineMode' on the 'Handle', and reads bytes directly.
+    --
+    -- NOTE: on Windows, this function does not work correctly; it
+    -- behaves identically to 'hGetBuf''.
     hPutBufNonBlocking' :: Handle -> Ptr a -> Int -> io Int
 
 
