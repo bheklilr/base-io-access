@@ -1,8 +1,8 @@
 module Access.System.IO
     ( module System.IO
 
-    , HandleWriteAccess
-    , HandleReadAccess
+    , HandleWriteAccess(..)
+    , HandleReadAccess(..)
     , HandleAccess(..)
     , StdIOAccess(..)
     , FileReadAccess(..)
@@ -20,6 +20,15 @@ import Access.Core
 
 -- | Provides access to Handle write functions
 class Access io => HandleWriteAccess io where
+    -- | Computation 'hPutChar'' @hdl ch@ writes the character @ch@ to the
+    -- file or channel managed by @hdl@.  Characters may be buffered if
+    -- buffering is enabled for @hdl@.
+    --
+    -- This operation may fail with:
+    --
+    --  * 'isFullError' if the device is full; or
+    --
+    --  * 'isPermissionError' if another system resource limit would be exceeded
     hPutChar'           :: Handle -> Char -> io ()
     hPutStr'            :: Handle -> String -> io ()
     hPutStrLn'          :: Handle -> String -> io ()
