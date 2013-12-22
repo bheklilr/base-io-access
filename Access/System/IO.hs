@@ -18,7 +18,7 @@ import Foreign.Ptr (Ptr)
 
 import Access.Core
 
-
+-- | Provides access to Handle write functions
 class Access io => HandleWriteAccess io where
     hPutChar'           :: Handle -> Char -> io ()
     hPutStr'            :: Handle -> String -> io ()
