@@ -20,13 +20,13 @@ module Access.Control.Concurrent
     ) where
 
 
-import Control.Concurrent
-import System.Posix.Types (Fd)
+import           Control.Concurrent
+import           System.Posix.Types             (Fd)
 
-import Access.System.Mem.Weak
-import Access.Control.Exception
-import Access.Control.Concurrent.MVar
-import Access.Control.Concurrent.Chan
+import           Access.Control.Concurrent.Chan
+import           Access.Control.Concurrent.MVar
+import           Access.Control.Exception
+import           Access.System.Mem.Weak
 
 
 -- | Inherits from 'ExceptionAccess', and gives access to Thread related functions

@@ -6,10 +6,10 @@ module Access.Data.IORef
     ) where
 
 
-import Data.IORef
+import           Data.IORef
 
-import Access.Core
-import Access.System.Mem.Weak
+import           Access.Core
+import           Access.System.Mem.Weak
 
 
 class Access io => IORefAccess io where

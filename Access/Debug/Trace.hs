@@ -5,9 +5,9 @@ module Access.Debug.Trace
     ) where
 
 
-import Debug.Trace
+import           Debug.Trace
 
-import Access.Core
+import           Access.Core
 
 
 class Access io => TraceAccess io where

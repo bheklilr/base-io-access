@@ -5,9 +5,9 @@ module Access.System.Mem.StableName
     ) where
 
 
-import System.Mem.StableName
+import           System.Mem.StableName
 
-import Access.Core
+import           Access.Core
 
 
 class Access io => StableNameAccess io where

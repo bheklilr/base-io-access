@@ -7,10 +7,10 @@ module Access.Control.Exception
     ) where
 
 
-import Control.Exception
-import Control.Concurrent (ThreadId)
+import           Control.Concurrent (ThreadId)
+import           Control.Exception
 
-import Access.Core
+import           Access.Core
 
 class Access io => ExceptionAccess io where
     throwIO'        :: Exception e => e -> io a

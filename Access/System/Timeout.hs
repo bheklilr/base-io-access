@@ -5,9 +5,9 @@ module Access.System.Timeout
     ) where
 
 
-import System.Timeout
+import           System.Timeout
 
-import Access.Core
+import           Access.Core
 
 
 class Access io => TimeoutAccess io where

@@ -5,9 +5,9 @@ module Access.System.CPUTime
     ) where
 
 
-import System.CPUTime
+import           System.CPUTime
 
-import Access.Core
+import           Access.Core
 
 
 class Access io => CPUTimeAccess io where

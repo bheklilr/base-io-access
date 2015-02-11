@@ -24,10 +24,10 @@ module Access.System.IO
     ) where
 
 
-import System.IO
-import Foreign.Ptr (Ptr)
+import           Foreign.Ptr (Ptr)
+import           System.IO
 
-import Access.Core
+import           Access.Core
 
 -- | Provides access to 'Handle' write functions
 class Access io => HandleWriteAccess io where

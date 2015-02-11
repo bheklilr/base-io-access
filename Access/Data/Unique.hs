@@ -5,9 +5,9 @@ module Access.Data.Unique
     ) where
 
 
-import Data.Unique
+import           Data.Unique
 
-import Access.Core
+import           Access.Core
 
 
 class Access io => UniqueAccess io where

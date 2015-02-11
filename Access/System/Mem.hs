@@ -5,9 +5,9 @@ module Access.System.Mem
     ) where
 
 
-import System.Mem
+import           System.Mem
 
-import Access.Core
+import           Access.Core
 
 
 class Access io => MemAccess io where

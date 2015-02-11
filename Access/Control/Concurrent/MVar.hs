@@ -6,10 +6,10 @@ module Access.Control.Concurrent.MVar
     ) where
 
 
-import Control.Concurrent.MVar
+import           Control.Concurrent.MVar
 
-import Access.Core
-import Access.System.Mem.Weak
+import           Access.Core
+import           Access.System.Mem.Weak
 
 class Access io => MVarAccess io where
     newEmptyMVar'       :: io (MVar a)

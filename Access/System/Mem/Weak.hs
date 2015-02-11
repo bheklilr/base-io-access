@@ -5,9 +5,9 @@ module Access.System.Mem.Weak
     ) where
 
 
-import System.Mem.Weak
+import           System.Mem.Weak
 
-import Access.Core
+import           Access.Core
 
 
 class Access io => WeakMemAccess io where

@@ -5,9 +5,9 @@ module Access.Control.Concurrent.Chan
     ) where
 
 
-import Control.Concurrent.Chan
+import           Control.Concurrent.Chan
 
-import Access.Core
+import           Access.Core
 
 
 class Access io => ChanAccess io where

@@ -5,9 +5,9 @@ module Access.System.Exit
     ) where
 
 
-import System.Exit
+import           System.Exit
 
-import Access.Core
+import           Access.Core
 
 
 class Access io => ExitAccess io where

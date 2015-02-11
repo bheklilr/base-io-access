@@ -5,9 +5,9 @@ module Access.System.IO.Error
     ) where
 
 
-import System.IO.Error
+import           System.IO.Error
 
-import Access.Core
+import           Access.Core
 
 
 class Access io => IOErrorAccess io where

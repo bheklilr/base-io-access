@@ -5,9 +5,9 @@ module Access.System.Environment
     ) where
 
 
-import System.Environment
+import           System.Environment
 
-import Access.Core
+import           Access.Core
 
 
 class Access io => EnvironmentAccess io where
