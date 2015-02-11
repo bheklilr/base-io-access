@@ -13,8 +13,10 @@ import           Access.Core
 class Access io => TraceAccess io where
     traceIO'        :: String -> io ()
     traceEventIO'   :: String -> io ()
+    traceMarkerIO'  :: String -> io ()
 
 
 instance TraceAccess IO where
-    traceIO'      = traceIO
-    traceEventIO' = traceEventIO
+    traceIO'       = traceIO
+    traceEventIO'  = traceEventIO
+    traceMarkerIO' = traceMarkerIO
