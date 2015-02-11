@@ -13,6 +13,8 @@ module Access.Control.Concurrent
 
     , module Access.Control.Concurrent.MVar
     , module Access.Control.Concurrent.Chan
+    , module Access.Control.Concurrent.QSem
+    , module Access.Control.Concurrent.QSemN
 
     , ThreadAccess(..)
     , BoundThreadAccess(..)
@@ -21,10 +23,13 @@ module Access.Control.Concurrent
 
 
 import           Control.Concurrent
-import           System.Posix.Types             (Fd)
+import           GHC.Conc                        (STM)
+import           System.Posix.Types              (Fd)
 
 import           Access.Control.Concurrent.Chan
 import           Access.Control.Concurrent.MVar
+import           Access.Control.Concurrent.QSem
+import           Access.Control.Concurrent.QSemN
 import           Access.Control.Exception
 import           Access.System.Mem.Weak
 
@@ -233,6 +238,20 @@ class ExceptionAccess io => ThreadAccess io where
     -- that has been used with 'threadWaitWrite', use
     -- 'GHC.Conc.closeFdWith'.
     threadWaitWrite'    :: Fd -> io ()
+    -- | Returns an STM action that can be used to wait for data
+    -- to read from a file descriptor. The second returned value
+    -- is an IO action that can be used to deregister interest
+    -- in the file descriptor.
+    --
+    -- /Since: 4.7.0.0/
+    threadWaitReadSTM' :: Fd -> io (STM (), io ())
+    -- | Returns an STM action that can be used to wait until data
+    -- can be written to a file descriptor. The second returned value
+    -- is an IO action that can be used to deregister interest
+    -- in the file descriptor.
+    --
+    -- /Since: 4.7.0.0/
+    threadWaitWriteSTM' :: Fd -> io (STM (), io ())
 
 
 -- | Provides access to bounded thread functions
@@ -328,6 +347,8 @@ instance ThreadAccess IO where
     threadDelay'        = threadDelay
     threadWaitRead'     = threadWaitRead
     threadWaitWrite'    = threadWaitWrite
+    threadWaitReadSTM'  = threadWaitReadSTM
+    threadWaitWriteSTM' = threadWaitWriteSTM
 
 instance BoundThreadAccess IO where
     forkOS'               = forkOS
