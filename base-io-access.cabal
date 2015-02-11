@@ -24,6 +24,8 @@ library
     exposed-modules:    Access.Control.Concurrent,
                         Access.Control.Concurrent.Chan,
                         Access.Control.Concurrent.MVar,
+                        Access.Control.Concurrent.QSem,
+                        Access.Control.Concurrent.QSemN,
                         Access.Control.Exception,
 
                         Access.Data.IORef,
